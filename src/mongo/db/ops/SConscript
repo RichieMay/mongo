@@ -66,6 +66,7 @@ env.Library(
         'modifier_rename.cpp',
         'modifier_set.cpp',
         'modifier_unset.cpp',
+        'modifier_diff.cpp',
     ],
     LIBDEPS=[
         '$BUILD_DIR/mongo/base',

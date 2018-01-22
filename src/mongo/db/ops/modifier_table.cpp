@@ -46,6 +46,7 @@
 #include "mongo/db/ops/modifier_rename.h"
 #include "mongo/db/ops/modifier_set.h"
 #include "mongo/db/ops/modifier_unset.h"
+#include "mongo/db/ops/modifier_diff.h"
 #include "mongo/platform/unordered_map.h"
 
 namespace mongo {
@@ -116,6 +117,9 @@ void init(NameMap* nameMap) {
 
     ModifierEntry* entryUnset = new ModifierEntry("$unset", MOD_UNSET);
     nameMap->insert(make_pair(StringData(entryUnset->name), entryUnset));
+
+	ModifierEntry* entryDiff = new ModifierEntry("$diff", MOD_DIFF);
+	nameMap->insert(make_pair(StringData(entryDiff->name), entryDiff));
 }
 
 }  // unnamed namespace
@@ -170,6 +174,8 @@ ModifierInterface* makeUpdateMod(ModifierType modType) {
             return new ModifierRename;
         case MOD_UNSET:
             return new ModifierUnset;
+		case MOD_DIFF:
+			return new ModifierDiff;
         default:
             return NULL;
     }

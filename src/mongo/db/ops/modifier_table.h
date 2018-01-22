@@ -51,6 +51,7 @@ enum ModifierType {
     MOD_SET_ON_INSERT,
     MOD_RENAME,
     MOD_UNSET,
+    MOD_DIFF,
     MOD_UNKNOWN
 };
 
