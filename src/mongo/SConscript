@@ -176,15 +176,18 @@ module_list = '{ %s }' % ', '.join([ '"{0}"'.format(x) for x in env['MONGO_MODUL
 # 3.1.1-rc2     = 3010103
 # 3.1.1-rc2-123 = 3010103
 # 3.1.1         = 3010199
-#
-version_parts = [ x for x in re.match(r'^(\d+)\.(\d+)\.(\d+)-?((?:(rc)(\d+))?.*)?',
+# 3.4.10.1
+
+version_parts = [ x for x in re.match(r'^(\d+)\.(\d+)\.(\d+)(?:(-)((?:(rc)(\d+))?.*)|(\.)(\d+))?$',
     env['MONGO_VERSION']).groups() ]
-version_extra = version_parts[3] if version_parts[3] else ""
-if version_parts[4] == 'rc':
-    version_parts[3] = int(version_parts[5]) + -50
-elif version_parts[3]:
+version_extra = version_parts[4] if version_parts[4] else ""
+if version_parts[5] == 'rc':
+    version_parts[3] = int(version_parts[6]) + -50
+elif version_parts[3] == '-':
     version_parts[2] = int(version_parts[2]) + 1
     version_parts[3] = -100
+elif version_parts[7] == '.':
+    version_parts[3] = version_parts[8]
 else:
     version_parts[3] = 0
 version_parts = [ int(x) for x in version_parts[:4]]

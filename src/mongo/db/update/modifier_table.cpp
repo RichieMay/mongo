@@ -46,6 +46,7 @@
 #include "mongo/db/update/push_node.h"
 #include "mongo/db/update/rename_node.h"
 #include "mongo/db/update/set_node.h"
+#include "mongo/db/update/diff_node.h"
 #include "mongo/db/update/unset_node.h"
 #include "mongo/platform/unordered_map.h"
 #include "mongo/stdx/memory.h"
@@ -115,6 +116,9 @@ void init(NameMap* nameMap) {
 
     ModifierEntry* entryUnset = new ModifierEntry("$unset", MOD_UNSET);
     nameMap->insert(make_pair(StringData(entryUnset->name), entryUnset));
+
+	ModifierEntry* entryDiff = new ModifierEntry("$diff", MOD_DIFF);
+	nameMap->insert(make_pair(StringData(entryDiff->name), entryDiff));
 }
 
 }  // unnamed namespace
@@ -169,6 +173,8 @@ std::unique_ptr<UpdateLeafNode> makeUpdateLeafNode(ModifierType modType) {
             return stdx::make_unique<SetNode>(UpdateNode::Context::kInsertOnly);
         case MOD_UNSET:
             return stdx::make_unique<UnsetNode>();
+		case MOD_DIFF:
+			return stdx::make_unique<DiffNode>();
         default:
             return nullptr;
     }

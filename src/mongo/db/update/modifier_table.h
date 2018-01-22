@@ -51,6 +51,7 @@ enum ModifierType {
     MOD_RENAME,
     MOD_UNSET,
     MOD_CONFLICT_PLACEHOLDER,
+    MOD_DIFF,
     MOD_UNKNOWN
 };
 

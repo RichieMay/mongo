@@ -82,6 +82,7 @@ env.Library(
         'push_node.cpp',
         'rename_node.cpp',
         'set_node.cpp',
+        'diff_node.cpp',
         'unset_node.cpp',
         'update_array_node.cpp',
         'update_internal_node.cpp',
